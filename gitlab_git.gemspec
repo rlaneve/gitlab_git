@@ -12,7 +12,5 @@ Gem::Specification.new do |s|
     'http://rubygems.org/gems/gitlab_git'
 
   s.add_dependency("gitlab-linguist", "~> 2.9.5")
-  s.add_dependency("gitlab-grit", "~> 2.6.1")
-  s.add_dependency("gitlab-pygments.rb", "~> 0.5.4")
   s.add_dependency("activesupport", "~> 4.0.0")
 end
