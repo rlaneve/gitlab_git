@@ -103,11 +103,11 @@ module Gitlab
         ref = ref || self.root_ref
         commit = Gitlab::Git::Commit.find(self, ref)
         return nil unless commit
-        
+
         extension = nil
         git_archive_format = nil
         pipe_cmd = nil
-        
+
         case format
         when "tar.bz2", "tbz", "tbz2", "tb2", "bz2"
           extension = ".tar.bz2"
@@ -277,6 +277,20 @@ module Gitlab
         #   fix-aaa
         #   fix-bbb
         # * master
+        output.scan(/[^* \n]+/)
+      end
+
+      # Returns tag names collection that contains the special commit(SHA1 or name)
+      #
+      # Ex.
+      #   repo.tag_names_contains('master')
+      #
+      def tag_names_contains(commit)
+        output = grit.git.native(:tag, {contains: true}, commit)
+        # The output is expected as follow
+        # v1.4
+        # v1.4.1
+        # v1.4.2
         output.scan(/[^* \n]+/)
       end
 
