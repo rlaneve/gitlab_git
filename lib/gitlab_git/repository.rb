@@ -314,6 +314,20 @@ module Gitlab
         output.scan(/[^* \n]+/)
       end
 
+      # Returns tag names collection that contains the special commit(SHA1 or name)
+      #
+      # Ex.
+      #   repo.tag_names_contains('master')
+      #
+      def tag_names_contains(commit)
+        output = grit.git.native(:tag, {contains: true}, commit)
+        # The output is expected as follow
+        # v1.4
+        # v1.4.1
+        # v1.4.2
+        output.scan(/[^* \n]+/)
+      end
+
       # Get refs hash which key is SHA1
       # and value is ref object(Grit::Head or Grit::Remote or Grit::Tag)
       def refs_hash
